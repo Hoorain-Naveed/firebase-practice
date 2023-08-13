@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        NAME:<br>
+        <input type="text" id="name"><br>
+        EMAIL:<br>
+        <input type="email" id="email"><br>
+        PASSWORD:<br>
+        <input type="password" id="password"><br>
+        <br><button id="submitt">SUBMIT</button>
+    </form>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
+        import { getDatabase } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js";
+        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
+
+        const firebaseConfig = {
+    apiKey: "AIzaSyAGpv2ou2suXkuIrdBdf8Qhra34RDUHlCE",
+    authDomain: "this-b8783.firebaseapp.com",
+    projectId: "this-b8783",
+    storageBucket: "this-b8783.appspot.com",
+    messagingSenderId: "358480333279",
+    appId: "1:358480333279:web:7ad2aa71c563ef1ffa1c6a"
+  };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+        const auth = getAuth();
+        const submitt = document.getElementById('submitt');
+
+        submitt.addEventListener("click", (e) => {
+            e.preventDefault(); // Prevent form submission
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const name = document.getElementById("name").value;
+
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    // User signed up successfully
+                    const user = userCredential.user;
+                    alert(`User ${name} created`);
+                })
+                .catch((error) => {
+                    // Handle errors
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    alert(errorMessage);
+                });
+        });
+    </script>
+</body>
+</html>

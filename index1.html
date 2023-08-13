@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    Name:<br>
+    <input type="text"id="name"><br>
+    email:<br>
+    <input type="text"id="email"><br>
+    address:<br>
+    <input type="text"id="address"><br>
+    password:<br>
+    <input type="password"id="password"><br>
+    <hr>
+    <button id="submitt">SUBMITT</button>
+
+    <input type="email"id="mail">
+    <input type="password" id="pass">
+
+    <button id="login">login</button>
+  
+
+
+
+
+    <!--------------------- import configuration ----------------->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
+        import { getDatabase} from "https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js";
+        /////signup//////
+        import { getAuth,createUserWithEmailAndPassword ,signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyC2obYWtifP2yub6my5r7Y6X9OtJ2cbH6E",
+          authDomain: "practice-aca7f.firebaseapp.com",
+          projectId: "practice-aca7f",
+          storageBucket: "practice-aca7f.appspot.com",
+          messagingSenderId: "165101175378",
+          appId: "1:165101175378:web:aadd0a44b7c0be9fa3158b"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database= getDatabase(app)
+        const auth=getAuth()
+        
+
+        submitt.addEventListener("click",(e)=>
+        {
+            const name=document.getElementById("name").value
+            const email=document.getElementById("email").value
+            const password=document.getElementById("password").value
+            const address=document.getElementById("address").value
+            createUserWithEmailAndPassword(auth, email, password,name)
+  .then((userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+    alert("user created")
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    alert(errorMessage)
+    // ..
+  });
+        })
+        login.addEventListener("click",(e)=>{
+          const email=document.getElementById("mail").value
+         const password= document.getElementById("pass").value
+        
+        signInWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+    alert("log in")
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    alert(error)
+  });
+})
+      </script>
+      
+</body>
+</html>
